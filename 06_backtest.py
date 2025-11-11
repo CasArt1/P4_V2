@@ -34,7 +34,7 @@ class BacktestConfig:
     POSITION_SIZE = 1.0  # 100% of capital (all-in strategy)
     
     # Risk management (optional)
-    STOP_LOSS = None  # Set to percentage (e.g., 0.05 for 5%) or None
+    STOP_LOSS = 0.10  # 10% stop loss
     TAKE_PROFIT = None  # Set to percentage (e.g., 0.10 for 10%) or None
     
     # Sequence length (must match model training)
@@ -174,8 +174,29 @@ class BacktestEngine:
                 'position': position
             })
             
+            # Check stop loss / take profit
+            stop_loss_triggered = False
+            take_profit_triggered = False
+            
+            if position != 0 and entry_price > 0:
+                price_change_pct = (current_price - entry_price) / entry_price
+                
+                # For long positions
+                if position == 1:
+                    if self.config.STOP_LOSS and price_change_pct <= -self.config.STOP_LOSS:
+                        stop_loss_triggered = True
+                    if self.config.TAKE_PROFIT and price_change_pct >= self.config.TAKE_PROFIT:
+                        take_profit_triggered = True
+                
+                # For short positions (inverse logic)
+                elif position == -1:
+                    if self.config.STOP_LOSS and price_change_pct >= self.config.STOP_LOSS:
+                        stop_loss_triggered = True
+                    if self.config.TAKE_PROFIT and price_change_pct <= -self.config.TAKE_PROFIT:
+                        take_profit_triggered = True
+            
             # Trading logic
-            if signal != position:  # Signal changed
+            if signal != position or stop_loss_triggered or take_profit_triggered:  # Signal changed or risk management triggered
                 
                 # Close existing position
                 if position != 0:
@@ -202,6 +223,14 @@ class BacktestEngine:
                     # Update capital
                     capital += net_pnl
                     
+                    # Determine exit reason
+                    if stop_loss_triggered:
+                        exit_reason = 'STOP_LOSS'
+                    elif take_profit_triggered:
+                        exit_reason = 'TAKE_PROFIT'
+                    else:
+                        exit_reason = 'SIGNAL'
+                    
                     # Record trade
                     self.trades.append({
                         'entry_date': entry_date,
@@ -215,7 +244,8 @@ class BacktestEngine:
                         'commission': exit_commission,
                         'borrow_cost': borrow_cost,
                         'net_pnl': net_pnl,
-                        'return_pct': (net_pnl / (shares * entry_price)) * 100
+                        'return_pct': (net_pnl / (shares * entry_price)) * 100,
+                        'exit_reason': exit_reason
                     })
                     
                     # Reset position
@@ -268,7 +298,8 @@ class BacktestEngine:
                 'commission': exit_commission,
                 'borrow_cost': borrow_cost,
                 'net_pnl': net_pnl,
-                'return_pct': (net_pnl / (shares * entry_price)) * 100
+                'return_pct': (net_pnl / (shares * entry_price)) * 100,
+                'exit_reason': 'END_OF_PERIOD'
             })
         
         # Calculate final equity

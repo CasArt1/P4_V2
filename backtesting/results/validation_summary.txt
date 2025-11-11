@@ -5,22 +5,22 @@ BACKTEST RESULTS - VALIDATION
 
 CAPITAL
   Initial Capital:        $     100,000.00
-  Final Equity:           $     102,023.85
-  Total Return:                      2.02%
+  Final Equity:           $      94,583.02
+  Total Return:                     -5.42%
 
 TRADE STATISTICS
-  Total Trades:                        48
-  Winning Trades:                      23
-  Losing Trades:                       25
-  Win Rate:                         47.92%
+  Total Trades:                        64
+  Winning Trades:                      29
+  Losing Trades:                       35
+  Win Rate:                         45.31%
   
-  Average Win:            $      10,691.56
-  Average Loss:           $      -9,455.41
+  Average Win:            $      11,797.10
+  Average Loss:           $      -9,659.03
 
 RISK METRICS
-  Sharpe Ratio:                     0.960
-  Sortino Ratio:                    1.596
-  Calmar Ratio:                     0.035
-  Maximum Drawdown:                -57.82%
+  Sharpe Ratio:                     0.908
+  Sortino Ratio:                    1.503
+  Calmar Ratio:                    -0.093
+  Maximum Drawdown:                -58.15%
 
 ============================================================
