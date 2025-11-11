@@ -1,0 +1,26 @@
+
+============================================================
+BACKTEST RESULTS - TRAIN
+============================================================
+
+CAPITAL
+  Initial Capital:        $     100,000.00
+  Final Equity:           $   8,924,182.18
+  Total Return:                   8824.18%
+
+TRADE STATISTICS
+  Total Trades:                       170
+  Winning Trades:                     126
+  Losing Trades:                       44
+  Win Rate:                         74.12%
+  
+  Average Win:            $     114,306.94
+  Average Loss:           $    -117,269.68
+
+RISK METRICS
+  Sharpe Ratio:                     1.368
+  Sortino Ratio:                    1.900
+  Calmar Ratio:                   148.928
+  Maximum Drawdown:                -59.25%
+
+============================================================
