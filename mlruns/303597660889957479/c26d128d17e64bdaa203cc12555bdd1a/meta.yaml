@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/Sebastian Castaneda/Desktop/Clases/TD/P4_V2/mlruns/303597660889957479/c26d128d17e64bdaa203cc12555bdd1a/artifacts
+end_time: 1762885595569
+entry_point_name: ''
+experiment_id: '303597660889957479'
+lifecycle_stage: active
+run_id: c26d128d17e64bdaa203cc12555bdd1a
+run_name: DeepCNN_test
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762885595446
+status: 3
+tags: []
+user_id: Sebastian Castaneda

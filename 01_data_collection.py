@@ -52,6 +52,10 @@ def save_raw_data(data, ticker="NVDA"):
         data (pd.DataFrame): Stock data
         ticker (str): Ticker symbol for filename
     """
+    # Flatten multi-index columns if present
+    if isinstance(data.columns, pd.MultiIndex):
+        data.columns = data.columns.get_level_values(0)
+    
     # Create data directory if it doesn't exist
     os.makedirs("data", exist_ok=True)
     
@@ -73,6 +77,10 @@ def basic_data_quality_check(data):
     print("DATA QUALITY CHECK")
     print("="*50)
     
+    # Flatten multi-index columns if present
+    if isinstance(data.columns, pd.MultiIndex):
+        data.columns = data.columns.get_level_values(0)
+    
     # Check for duplicates
     duplicates = data.index.duplicated().sum()
     print(f"Duplicate dates: {duplicates}")
@@ -83,17 +91,26 @@ def basic_data_quality_check(data):
     print(f"Maximum gap between dates: {max_gap} days")
     
     # Price statistics
+    close_min = float(data['Close'].min())
+    close_max = float(data['Close'].max())
+    close_mean = float(data['Close'].mean())
+    close_current = float(data['Close'].iloc[-1])
+    
     print(f"\nPrice Statistics (Close):")
-    print(f"  Min: ${data['Close'].min():.2f}")
-    print(f"  Max: ${data['Close'].max():.2f}")
-    print(f"  Mean: ${data['Close'].mean():.2f}")
-    print(f"  Current: ${data['Close'].iloc[-1]:.2f}")
+    print(f"  Min: ${close_min:.2f}")
+    print(f"  Max: ${close_max:.2f}")
+    print(f"  Mean: ${close_mean:.2f}")
+    print(f"  Current: ${close_current:.2f}")
     
     # Volume statistics
+    vol_min = float(data['Volume'].min())
+    vol_max = float(data['Volume'].max())
+    vol_mean = float(data['Volume'].mean())
+    
     print(f"\nVolume Statistics:")
-    print(f"  Min: {data['Volume'].min():,.0f}")
-    print(f"  Max: {data['Volume'].max():,.0f}")
-    print(f"  Mean: {data['Volume'].mean():,.0f}")
+    print(f"  Min: {vol_min:,.0f}")
+    print(f"  Max: {vol_max:,.0f}")
+    print(f"  Mean: {vol_mean:,.0f}")
     
     # Check for zero or negative prices
     zero_prices = (data['Close'] <= 0).sum()
@@ -138,3 +155,5 @@ def main():
 
 if __name__ == "__main__":
     data = main()
+
+

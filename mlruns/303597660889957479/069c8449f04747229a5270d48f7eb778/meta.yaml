@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/Sebastian Castaneda/Desktop/Clases/TD/P4_V2/mlruns/303597660889957479/069c8449f04747229a5270d48f7eb778/artifacts
+end_time: 1762885605596
+entry_point_name: ''
+experiment_id: '303597660889957479'
+lifecycle_stage: active
+run_id: 069c8449f04747229a5270d48f7eb778
+run_name: CustomCNN_test
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762885605474
+status: 3
+tags: []
+user_id: Sebastian Castaneda

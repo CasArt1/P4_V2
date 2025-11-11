@@ -1,0 +1,14 @@
+artifact_uri: file:C:/Users/Sebastian Castaneda/Desktop/Clases/TD/P4_V2/mlruns/303597660889957479/55630a372d7349bf89e58b8b382701ed/artifacts
+end_time: 1762885584828
+entry_point_name: ''
+experiment_id: '303597660889957479'
+lifecycle_stage: active
+run_id: 55630a372d7349bf89e58b8b382701ed
+run_name: SimpleCNN_test
+source_name: ''
+source_type: 4
+source_version: ''
+start_time: 1762885584719
+status: 3
+tags: []
+user_id: Sebastian Castaneda
