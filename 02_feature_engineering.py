@@ -24,7 +24,7 @@ def load_data(filepath="data/NVDA_raw_data.csv"):
     """
     print(f"Loading data from {filepath}...")
     df = pd.read_csv(filepath, index_col=0, parse_dates=True)
-    print(f"✅ Loaded {len(df)} rows")
+    print(f" Loaded {len(df)} rows")
     return df
 
 def add_momentum_indicators(df):
@@ -37,7 +37,7 @@ def add_momentum_indicators(df):
     Returns:
         pd.DataFrame: Data with momentum features added
     """
-    print("\n📊 Adding Momentum Indicators...")
+    print("\n Adding Momentum Indicators...")
     
     # RSI - Multiple periods
     rsi_14 = RSIIndicator(close=df['Close'], window=14)
@@ -76,7 +76,7 @@ def add_momentum_indicators(df):
     )
     df['adx'] = adx.adx()
     
-    print(f"  ✅ Added 10 momentum features")
+    print(f"   Added 10 momentum features")
     return df
 
 def add_volatility_indicators(df):
@@ -113,7 +113,7 @@ def add_volatility_indicators(df):
     df['returns'] = df['Close'].pct_change()
     df['volatility_20'] = df['returns'].rolling(window=20).std() * np.sqrt(252)
     
-    print(f"  ✅ Added 8 volatility features")
+    print(f"   Added 8 volatility features")
     return df
 
 def add_volume_indicators(df):
@@ -150,7 +150,7 @@ def add_volume_indicators(df):
     df['volume_ma_20'] = df['Volume'].rolling(window=20).mean()
     df['volume_ratio'] = df['Volume'] / df['volume_ma_20']
     
-    print(f"  ✅ Added 6 volume features")
+    print(f"   Added 6 volume features")
     return df
 
 def add_price_features(df):
@@ -163,7 +163,7 @@ def add_price_features(df):
     Returns:
         pd.DataFrame: Data with price features added
     """
-    print("\n📊 Adding Price Features...")
+    print("\n Adding Price Features...")
     
     # Simple Moving Averages
     df['sma_20'] = df['Close'].rolling(window=20).mean()
@@ -176,7 +176,7 @@ def add_price_features(df):
     # Daily price change
     df['price_change'] = df['Close'].pct_change() * 100
     
-    print(f"  ✅ Added 5 price features")
+    print(f"   Added 5 price features")
     return df
 
 def create_target_variable(df, forward_period=5, threshold=2.0):
@@ -233,14 +233,14 @@ def normalize_features(df, feature_columns):
     Returns:
         pd.DataFrame: Data with normalized features
     """
-    print(f"\n🔄 Normalizing {len(feature_columns)} features...")
+    print(f"\n Normalizing {len(feature_columns)} features...")
     
     for col in feature_columns:
         mean = df[col].mean()
         std = df[col].std()
         df[f'{col}_norm'] = (df[col] - mean) / (std + 1e-8)  # Add small value to avoid division by zero
     
-    print(f"  ✅ Normalization complete")
+    print(f"   Normalization complete")
     return df
 
 def split_data(df, train_pct=0.6, val_pct=0.2, test_pct=0.2):
@@ -256,7 +256,7 @@ def split_data(df, train_pct=0.6, val_pct=0.2, test_pct=0.2):
     Returns:
         tuple: (train_df, val_df, test_df)
     """
-    print(f"\n✂️ Splitting Data (Train: {train_pct*100}%, Val: {val_pct*100}%, Test: {test_pct*100}%)...")
+    print(f"\n Splitting Data (Train: {train_pct*100}%, Val: {val_pct*100}%, Test: {test_pct*100}%)...")
     
     n = len(df)
     train_end = int(n * train_pct)
@@ -282,19 +282,19 @@ def save_processed_data(df, train_df, val_df, test_df):
         val_df (pd.DataFrame): Validation set
         test_df (pd.DataFrame): Test set
     """
-    print(f"\n💾 Saving Processed Data...")
+    print(f"\n Saving Processed Data...")
     
     # Save full dataset
     df.to_csv('data/NVDA_features.csv')
-    print(f"  ✅ Full dataset: data/NVDA_features.csv")
+    print(f"   Full dataset: data/NVDA_features.csv")
     
     # Save splits
     train_df.to_csv('data/NVDA_train.csv')
     val_df.to_csv('data/NVDA_val.csv')
     test_df.to_csv('data/NVDA_test.csv')
-    print(f"  ✅ Train set: data/NVDA_train.csv")
-    print(f"  ✅ Val set: data/NVDA_val.csv")
-    print(f"  ✅ Test set: data/NVDA_test.csv")
+    print(f"   Train set: data/NVDA_train.csv")
+    print(f"   Val set: data/NVDA_val.csv")
+    print(f"   Test set: data/NVDA_test.csv")
 
 def main():
     """Main feature engineering pipeline"""
@@ -342,7 +342,7 @@ def main():
     save_processed_data(df, train_df, val_df, test_df)
     
     print("\n" + "="*60)
-    print("✅ Phase 2 Complete: Feature Engineering Done!")
+    print(" Phase 2 Complete: Feature Engineering Done!")
     print("="*60)
     print(f"\nNext steps:")
     print(f"1. Review the features in: data/NVDA_features.csv")

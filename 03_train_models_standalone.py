@@ -152,7 +152,7 @@ def compile_model(model, learning_rate=0.001):
 
 def load_data():
     """Load processed train/val/test datasets"""
-    print("📂 Loading processed data...")
+    print(" Loading processed data...")
     
     train_df = pd.read_csv('data/NVDA_train.csv', index_col=0, parse_dates=True)
     val_df = pd.read_csv('data/NVDA_val.csv', index_col=0, parse_dates=True)
@@ -204,7 +204,7 @@ def calculate_class_weights(y_train):
     )
     class_weights = {i: weights[i] for i in range(len(classes))}
     
-    print(f"\n⚖️  Class Weights:")
+    print(f"\n  Class Weights:")
     print(f"  Short (0): {class_weights[0]:.3f}")
     print(f"  Hold  (1): {class_weights[1]:.3f}")
     print(f"  Long  (2): {class_weights[2]:.3f}")
@@ -246,7 +246,7 @@ def plot_training_history(history, model_name, save_dir='models/plots'):
     plt.savefig(save_path, dpi=300, bbox_inches='tight')
     plt.close()
     
-    print(f"  📊 Training history saved: {save_path}")
+    print(f"   Training history saved: {save_path}")
     
     return save_path
 
@@ -322,7 +322,7 @@ def train_model(model, model_name, X_train_seq, y_train_seq, X_val_seq, y_val_se
         )
         
         # Train model
-        print(f"\n🚀 Starting training...")
+        print(f"\n Starting training...")
         history = model.fit(
             X_train_seq, y_train_seq,
             validation_data=(X_val_seq, y_val_seq),
@@ -354,7 +354,7 @@ def train_model(model, model_name, X_train_seq, y_train_seq, X_val_seq, y_val_se
         model.save(model_path)
         mlflow.log_artifact(model_path)
         
-        print(f"\n✅ Training complete!")
+        print(f"\n Training complete!")
         print(f"  Final Train Accuracy: {final_train_acc:.4f}")
         print(f"  Final Val Accuracy: {final_val_acc:.4f}")
         print(f"  Model saved: {model_path}")
@@ -364,7 +364,7 @@ def train_model(model, model_name, X_train_seq, y_train_seq, X_val_seq, y_val_se
 def evaluate_model(model, model_name, X_test_seq, y_test_seq):
     """Evaluate model on test set"""
     
-    print(f"\n📊 Evaluating {model_name} on test set...")
+    print(f"\n Evaluating {model_name} on test set...")
     
     # Predictions
     y_pred_probs = model.predict(X_test_seq, verbose=0)
@@ -430,7 +430,7 @@ def main():
     
     # Create sequences
     sequence_length = 10
-    print(f"\n🔄 Creating sequences (length={sequence_length})...")
+    print(f"\n Creating sequences (length={sequence_length})...")
     
     X_train_seq, y_train_seq = create_sequences(X_train, y_train, sequence_length)
     X_val_seq, y_val_seq = create_sequences(X_val, y_val, sequence_length)
@@ -445,7 +445,7 @@ def main():
     
     # Input shape for models
     input_shape = (sequence_length, len(feature_cols))
-    print(f"\n📐 Input shape: {input_shape}")
+    print(f"\n Input shape: {input_shape}")
     
     # Training parameters
     epochs = 50
@@ -506,19 +506,19 @@ def main():
     
     # Save results
     results_df.to_csv('models/model_comparison.csv', index=False)
-    print(f"\n💾 Results saved to: models/model_comparison.csv")
+    print(f"\n Results saved to: models/model_comparison.csv")
     
     # Select best model
     best_model_idx = results_df['test_f1_score'].idxmax()
     best_model_name = results_df.loc[best_model_idx, 'model_name']
     best_f1 = results_df.loc[best_model_idx, 'test_f1_score']
     
-    print(f"\n🏆 BEST MODEL: {best_model_name}")
+    print(f"\n BEST MODEL: {best_model_name}")
     print(f"   Test F1-Score: {best_f1:.4f}")
     print(f"   Test Accuracy: {results_df.loc[best_model_idx, 'test_accuracy']:.4f}")
     
     print(f"\n{'='*60}")
-    print("✅ PHASE 3 COMPLETE!")
+    print(" PHASE 3 COMPLETE!")
     print(f"{'='*60}")
     print("\nNext steps:")
     print("1. Review MLFlow UI: mlflow ui")

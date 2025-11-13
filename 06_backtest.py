@@ -48,7 +48,7 @@ def load_model():
     """Load trained model"""
     print(f"Loading model from {BacktestConfig.MODEL_PATH}...")
     model = keras.models.load_model(BacktestConfig.MODEL_PATH)
-    print(f"✅ Model loaded successfully")
+    print(f" Model loaded successfully")
     return model
 
 def load_backtest_data():
@@ -83,7 +83,7 @@ def generate_signals(model, df, sequence_length=10):
     Returns:
         DataFrame with signals added
     """
-    print("\n📊 Generating trading signals...")
+    print("\n Generating trading signals...")
     
     # Get normalized features
     feature_cols = [col for col in df.columns if col.endswith('_norm')]
@@ -145,7 +145,7 @@ class BacktestEngine:
         Returns:
             results: Dictionary with backtest results
         """
-        print("\n💰 Running backtest...")
+        print("\n Running backtest...")
         
         # Initialize
         capital = self.config.INITIAL_CAPITAL
@@ -305,7 +305,7 @@ class BacktestEngine:
         # Calculate final equity
         final_equity = capital
         
-        print(f"✅ Backtest complete!")
+        print(f" Backtest complete!")
         print(f"  Total trades: {len(self.trades)}")
         print(f"  Final equity: ${final_equity:,.2f}")
         
@@ -411,7 +411,7 @@ def plot_equity_curve(equity_df, period_name, save_path=None):
     
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"  📊 Saved: {save_path}")
+        print(f"   Saved: {save_path}")
     
     plt.close()
 
@@ -434,7 +434,7 @@ def plot_drawdown(equity_df, period_name, save_path=None):
     
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"  📊 Saved: {save_path}")
+        print(f"   Saved: {save_path}")
     
     plt.close()
 
@@ -466,7 +466,7 @@ def plot_trade_distribution(trades_df, period_name, save_path=None):
     
     if save_path:
         plt.savefig(save_path, dpi=300, bbox_inches='tight')
-        print(f"  📊 Saved: {save_path}")
+        print(f"   Saved: {save_path}")
     
     plt.close()
 
@@ -506,7 +506,7 @@ RISK METRICS
     if save_path:
         with open(save_path, 'w') as f:
             f.write(summary_text)
-        print(f"  📄 Saved: {save_path}")
+        print(f"   Saved: {save_path}")
 
 # ============================================================
 # MAIN EXECUTION
@@ -526,7 +526,7 @@ def main():
     # Configuration
     config = BacktestConfig()
     
-    print(f"\n⚙️  Backtest Configuration:")
+    print(f"\n  Backtest Configuration:")
     print(f"  Initial Capital: ${config.INITIAL_CAPITAL:,.2f}")
     print(f"  Commission Rate: {config.COMMISSION_RATE*100:.3f}%")
     print(f"  Borrow Rate: {config.BORROW_RATE_ANNUAL*100:.3f}% (annual)")

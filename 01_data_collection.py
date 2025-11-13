@@ -37,10 +37,10 @@ def download_stock_data(ticker="NVDA", years=15):
     # Check for missing values
     missing = data.isnull().sum()
     if missing.any():
-        print(f"\n⚠️ Missing values detected:")
+        print(f"\n Missing values detected:")
         print(missing[missing > 0])
     else:
-        print("\n✅ No missing values detected!")
+        print("\n No missing values detected!")
     
     return data
 
@@ -62,7 +62,7 @@ def save_raw_data(data, ticker="NVDA"):
     # Save to CSV
     filepath = f"data/{ticker}_raw_data.csv"
     data.to_csv(filepath)
-    print(f"\n💾 Data saved to: {filepath}")
+    print(f"\n Data saved to: {filepath}")
     
     return filepath
 
@@ -115,16 +115,16 @@ def basic_data_quality_check(data):
     # Check for zero or negative prices
     zero_prices = (data['Close'] <= 0).sum()
     if zero_prices > 0:
-        print(f"\n⚠️ Warning: {zero_prices} rows with zero or negative prices!")
+        print(f"\n Warning: {zero_prices} rows with zero or negative prices!")
     else:
-        print(f"\n✅ All prices are positive")
+        print(f"\n All prices are positive")
     
     # Check for zero volume
     zero_volume = (data['Volume'] == 0).sum()
     if zero_volume > 0:
-        print(f"⚠️ Warning: {zero_volume} rows with zero volume")
+        print(f" Warning: {zero_volume} rows with zero volume")
     else:
-        print(f"✅ No zero volume days")
+        print(f" No zero volume days")
 
 def main():
     """Main execution function"""
@@ -144,7 +144,7 @@ def main():
     filepath = save_raw_data(data, ticker=ticker)
     
     print("\n" + "="*50)
-    print("✅ Phase 1 Complete: Data Collection Done!")
+    print(" Phase 1 Complete: Data Collection Done")
     print("="*50)
     print(f"\nNext steps:")
     print(f"1. Review the data in: {filepath}")
